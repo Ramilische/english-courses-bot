@@ -1,0 +1,22 @@
+[project]
+name = "english-courses-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Ramil Sharipov", email = "ramilkasharipov@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "aiogram>=3.31.0",
+    "asyncpg>=0.32.0",
+    "psycopg2-binary>=2.9.13",
+    "sqlalchemy>=2.1.4",
+]
+
+[project.scripts]
+dev = "dev:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
