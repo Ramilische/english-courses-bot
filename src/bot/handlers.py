@@ -46,7 +46,7 @@ async def process_payment_callback(callback_query: CallbackQuery):
     if getenv('PROVIDER_TOKEN') is None:
         await callback_query.answer('Токен провайдера отсутствует, напиши @ramilische')
         return
-    
+
     price_string = getenv('PRICE')
     price = 100
     if price_string:
@@ -67,5 +67,6 @@ async def process_payment_callback(callback_query: CallbackQuery):
 @router.message(F.successful_payment)
 async def process_successful_payment(message: Message):
     """Sending a link after payment"""
+    print('Вроде успешная оплата')
     link = generate_link()
     message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
