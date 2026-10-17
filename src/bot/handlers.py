@@ -1,6 +1,7 @@
 """Handlers for the bot"""
 from os import getenv
 
+from dotenv import load_dotenv
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, PreCheckoutQuery, LabeledPrice
@@ -57,7 +58,7 @@ async def process_payment_callback(callback_query: CallbackQuery):
         title="Курс английского языка",
         description="Оплата курса английского языка",
         payload="payment_payload",
-        provider_token=getenv('PRICE'),
+        provider_token=getenv('PROVIDER_TOKEN'),
         prices=prices,
         currency='RUB'
     )
