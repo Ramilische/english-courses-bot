@@ -4,7 +4,7 @@ from asyncio import run
 
 import dotenv
 
-from bot.main import main as start_bot
+from bot.main import start
 
 
 def main():
@@ -12,4 +12,4 @@ def main():
     dotenv.load_dotenv('./env/prod.env')
     bot_token = getenv("BOT_TOKEN")
     print(f"Bot token: {bot_token}")
-    run(start_bot(bot_token))
+    run(start(bot_token))

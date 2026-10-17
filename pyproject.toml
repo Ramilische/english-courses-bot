@@ -13,11 +13,12 @@ dependencies = [
     "dotenv>=0.9.9",
     "psycopg2-binary>=2.9.13",
     "sqlalchemy>=2.1.4",
+    "yookassa>=3.13.0",
 ]
 
 [project.scripts]
 dev = "dev:main"
-prod = "prod:main"
+
 
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]

@@ -1,18 +1,17 @@
 """Main module for the bot"""
 from aiogram import Bot, Dispatcher
-from aiogram.filters import Command
-from aiogram.types import Message
+
+from bot.handlers import router
 
 dp = Dispatcher()
 
-@dp.message(Command(commands=["start"]))
-async def start(message: Message):
-    """Handler for the /start command"""
-    await message.reply("Старт")
 
-
-async def main(bot_token: str | None):
+async def start(bot_token: str | None):
     """Function to start the bot"""
     if bot_token is None:
         raise ValueError("Bot token is not set. Please set the TOKEN environment variable.")
-    await dp.start_polling(Bot(token=bot_token))
+    bot = Bot(token=bot_token)
+
+    await bot.delete_webhook(drop_pending_updates=True)
+    dp.include_router(router)
+    await dp.start_polling(bot)
