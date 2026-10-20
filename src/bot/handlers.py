@@ -69,7 +69,7 @@ async def process_successful_payment(message: Message):
     """Sending a link after payment"""
     print('Вроде успешная оплата')
     link = generate_link()
-    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
+    await message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
 
 @router.message(lambda c: True)
 async def check_if_payment_is_successful(message: Message):
