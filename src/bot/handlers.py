@@ -37,6 +37,14 @@ async def process_pre_checkout_query(pre_checkout_query: PreCheckoutQuery):
     await pre_checkout_query.answer(ok=True)
 
 
+@router.message(F.successful_payment)
+async def process_successful_payment(message: Message):
+    """Sending a link after payment"""
+    print('Вроде успешная оплата')
+    link = generate_link()
+    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
+
+
 @router.callback_query(lambda c: c.data == "pay")
 async def process_payment_callback(callback_query: CallbackQuery):
     """Handler for the payment callback"""
@@ -57,16 +65,9 @@ async def process_payment_callback(callback_query: CallbackQuery):
     await callback_query.message.answer_invoice(
         title="Курс английского языка",
         description="Оплата курса английского языка",
-        payload="payment_payload",
+        payload="course1",
         provider_token=getenv('PROVIDER_TOKEN'),
         prices=prices,
         currency='RUB'
     )
 
-
-@router.message(F.successful_payment)
-async def process_successful_payment(message: Message):
-    """Sending a link after payment"""
-    print('Вроде успешная оплата')
-    link = generate_link()
-    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
