@@ -80,5 +80,4 @@ async def check_if_payment_is_successful(message: Message):
 
     print('Вроде успешная оплата')
     link = generate_link()
-    message.chat.
     message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
