@@ -77,6 +77,7 @@ async def check_if_payment_is_successful(message: Message):
     payment = message.successful_payment
     if payment is None:
         await message.answer('Не понимаю')
+        return
 
     print('Вроде успешная оплата')
     link = generate_link()
