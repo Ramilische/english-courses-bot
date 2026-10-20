@@ -37,23 +37,6 @@ async def process_pre_checkout_query(pre_checkout_query: PreCheckoutQuery):
     await pre_checkout_query.answer(ok=True)
 
 
-@router.message(F.successful_payment)
-async def process_successful_payment(message: Message):
-    """Sending a link after payment"""
-    print('Вроде успешная оплата')
-    link = generate_link()
-    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
-
-
-@router.message()
-async def process_successful_payment_2(message: Message, payment: SuccessfulPayment):
-    """Sending a link after payment"""
-    print('Вроде успешная оплата')
-    message.answer(f'{payment.total_amount}{payment.currency} были переведены')
-    link = generate_link()
-    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
-
-
 @router.callback_query(lambda c: c.data == "pay")
 async def process_payment_callback(callback_query: CallbackQuery):
     """Handler for the payment callback"""
@@ -80,3 +63,21 @@ async def process_payment_callback(callback_query: CallbackQuery):
         currency='RUB'
     )
 
+
+@router.message(F.successful_payment)
+async def process_successful_payment(message: Message):
+    """Sending a link after payment"""
+    print('Вроде успешная оплата')
+    link = generate_link()
+    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
+
+@router.message(lambda c: True)
+async def check_if_payment_is_successful(message: Message):
+    """Checks if message is successful payment"""
+    payment = message.successful_payment
+    if payment is None:
+        return
+
+    print('Вроде успешная оплата')
+    link = generate_link()
+    message.answer(f'Оплата прошла успешно, ссылка на курс: {link}')
